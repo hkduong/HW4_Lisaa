@@ -23,7 +23,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     Button buttonSearch, buttonGoToReport;
     TextView textViewBirdName, textViewPersonName;
 
-    //Add some 
+    //Add some
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,16 +47,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         final DatabaseReference myRef = database.getReference("message");
 
     if (view == buttonSearch){
-        String searchZipCode = editTextZipCodeSearch.getText().toString();
-        myRef.orderByChild("Zipcode").equalTo(searchZipCode).addChildEventListener(new ChildEventListener() {
+        int zipCodeSearch =  Integer.parseInt(editTextZipCodeSearch.getText().toString());
+        myRef.orderByChild("zipCode").equalTo(zipCodeSearch).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String findKey = dataSnapshot.getKey();
-                Bird foundBirdName = dataSnapshot.getValue(Bird.class);
-                Bird foundPersonName = dataSnapshot.getValue(Bird.class);
+                // String findKey = dataSnapshot.getKey();
+                Bird foundBird = dataSnapshot.getValue(Bird.class);
 
-                String findBird = foundBirdName.birdName;
-                String findPerson = foundPersonName.personName;
+                String findBird = foundBird.birdName;
+                String findPerson = foundBird.personName;
 
                 textViewBirdName.setText(findBird);
                 textViewPersonName.setText(findPerson);
